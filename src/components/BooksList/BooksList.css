@@ -1,0 +1,16 @@
+.list-container {
+    padding: 50px 20px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.list-button {
+    margin-right: 5px;
+}
+
+.header {
+    padding-bottom: 25px;
+}

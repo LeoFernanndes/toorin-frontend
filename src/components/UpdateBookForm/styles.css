@@ -1,0 +1,16 @@
+.form-container {
+    padding: 50px 0px;
+}
+
+.buttons-group {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.button {
+    margin: 10px;
+}
+
+.header {
+    padding-bottom: 25px;
+}

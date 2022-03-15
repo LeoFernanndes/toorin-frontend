@@ -1,0 +1,117 @@
+import React from "react";
+import Container from 'react-bootstrap/Container'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Table from 'react-bootstrap/Table'
+import axios from 'axios';
+import { UpdateBookForm } from '../UpdateBookForm';
+import './BooksList.css'
+
+
+type Livro = {
+  "id"?: number,
+  "titulo": string,
+  "isbm": string,
+  "autor": string,
+  "editora": string,
+  "edicao"?: number,
+  "num_paginas"?: number,
+  "descricao": string
+}
+
+type Props = {}
+
+type State = {
+  livros: Livro[]
+  action: 'list' | 'update',
+  bookId: number | undefined
+
+}
+
+export class BooksList extends React.Component<Props, State> {      
+  state: State = {
+    livros: [],
+    action: 'list',
+    bookId: 0
+  }
+
+  backToList = () => {
+    this.setState({action: 'list'})
+  }
+
+  async componentDidUpdate(prevPros: Props, prevState: State){
+    if (JSON.stringify(this.state) !== JSON.stringify(prevState)){
+      this.componentDidMount()
+      console.log(JSON.stringify(this.state.livros) !== JSON.stringify(prevState.livros))
+      console.log('componentDidUpdate')
+    }
+  }
+
+  async componentDidMount() {
+     const api = axios.create({
+      baseURL: 'http://localhost:8000'
+    })
+    const response = await api.get('/livros/')
+      .then(response => {
+        this.setState({livros: response.data})
+        console.log('componentDidMount')
+      })
+      .catch(error => console.log(error))    
+  }
+
+  async deleteBook(bookId: any): Promise<void> {
+    const api = axios.create({
+      baseURL: 'http://localhost:8000'
+    })
+    const response = await api.delete(`/livros/${ bookId }`)
+      .then(response => {
+        this.componentDidMount()
+        console.log('deleteBook')
+      })
+      .catch(error => console.log(error))    
+  }
+  
+  render() {
+    if (this.state.action === "list"){
+      return(
+        <Container className="list-container">
+          <h1 className='header'>Lista de livros cadastrados</h1>
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr key="header">
+              <th>#</th>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Edição</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+          { 
+            this.state.livros.map((livro) => {
+              return(      
+                  <tr key={livro.id}>
+                    <td>{livro.id}</td>
+                    <td>{livro.titulo}</td>
+                    <td>{livro.autor}</td>
+                    <td>{livro.edicao}</td>
+                    <td>
+                      <div className='buttons-container'>
+                        <button className="list-button" onClick={() => { this.setState({action: 'update', bookId: livro.id})}}>Update</button>
+                        <button className='list-button' onClick={() => { this.deleteBook(livro.id) }}>Delete</button>
+                      </div>
+                    </td>
+                  </tr>          
+                )
+              })    
+            }
+          </tbody>          
+        </Table>
+        </Container>        
+      )
+    } else {
+      return (
+              <UpdateBookForm nomeDoBotao="update" bookId={this.state.bookId} backToList={this.backToList}/>
+        )
+    }
+  }
+}
