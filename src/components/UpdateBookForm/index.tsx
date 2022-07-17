@@ -1,13 +1,12 @@
 import React from 'react';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Container from 'react-bootstrap/Container'
-import './styles.css'
-import { ErrorSharp, StarRate } from '@material-ui/icons';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import BooksService from '../../services/booksData.service';
+import './styles.css';
 
 
-type Livro = {
+export type Livro = {
   "id"?: number,
   "titulo": string,
   "isbm": string,
@@ -20,14 +19,13 @@ type Livro = {
 
 type Props = {
   nomeDoBotao: string,
-  bookId: number | undefined
+  bookId: number | undefined // dar uma olhada nesse undefined ja que em nesse componente sempre haverá um id
   backToList: () => void
 }
 
 type State = {
   livro: Livro
 }
-
 
 export class UpdateBookForm extends React.Component<Props, State> {
   state: State = {
@@ -44,17 +42,15 @@ export class UpdateBookForm extends React.Component<Props, State> {
   }
 
   async componentDidMount() {
-    const api = axios.create({
-     baseURL: 'http://localhost:8000'
-   })
-   const response = await api.get(`/livros/${this.props.bookId}`)
+    const bookId = this.props.bookId || 0
+    BooksService.retrieveBook(bookId)
       .then(response =>{ 
         let retrievedBook: Livro = response.data
         this.setState({livro: {...retrievedBook}})
       })
       .catch(error => console.log(error))
-   
- }
+  
+  }
 
   handleElementChange = (element: any): void => {
     const value = element.currentTarget.value
@@ -68,13 +64,11 @@ export class UpdateBookForm extends React.Component<Props, State> {
   }
 
   handleSubmit = async (event: React.FormEvent): Promise<void> => {
-    event.preventDefault();
-    const api = axios.create({
-      baseURL: 'http://localhost:8000'
-    })
-    let updatedBook = this.state.livro
-    delete updatedBook['id']
-    const response = await api.put(`/livros/${this.props.bookId}`, updatedBook)
+    const bookId = this.props.bookId || 0
+    let updatedBookPayload = this.state.livro
+    delete updatedBookPayload['id']
+    console.log(updatedBookPayload)
+    BooksService.updateBook(bookId, updatedBookPayload)
       .then(response =>{ 
         let retrievedBook: Livro = response.data
         this.setState({livro: {...retrievedBook}})
@@ -94,7 +88,7 @@ export class UpdateBookForm extends React.Component<Props, State> {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Título</Form.Label>
-            <Form.Control type="text" onChange={element => {this.handleElementChange(element)}} value={this.state.livro.titulo} />
+            <Form.Control type="text" name="titulo" onChange={element => {this.handleElementChange(element)}} value={this.state.livro.titulo} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>ISBM</Form.Label>

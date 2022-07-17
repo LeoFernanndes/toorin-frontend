@@ -1,9 +1,9 @@
 import React from "react";
 import Container from 'react-bootstrap/Container'
-import ListGroup from 'react-bootstrap/ListGroup'
 import Table from 'react-bootstrap/Table'
-import axios from 'axios';
+import { Navigate } from "react-router-dom";
 import { UpdateBookForm } from '../UpdateBookForm';
+import BooksService from '../../services/booksData.service'
 import './BooksList.css'
 
 
@@ -23,7 +23,8 @@ type Props = {}
 type State = {
   livros: Livro[]
   action: 'list' | 'update',
-  bookId: number | undefined
+  bookId: number | undefined,
+  isLoggedIn: boolean
 
 }
 
@@ -31,7 +32,8 @@ export class BooksList extends React.Component<Props, State> {
   state: State = {
     livros: [],
     action: 'list',
-    bookId: 0
+    bookId: 0,
+    isLoggedIn: false
   }
 
   backToList = () => {
@@ -46,31 +48,29 @@ export class BooksList extends React.Component<Props, State> {
     }
   }
 
-  async componentDidMount() {
-     const api = axios.create({
-      baseURL: 'http://localhost:8000'
+  async componentDidMount() {   
+    BooksService.listBooks()
+    .then(response => {
+      this.setState({livros: response.data})
     })
-    const response = await api.get('/livros/')
-      .then(response => {
-        this.setState({livros: response.data})
-        console.log('componentDidMount')
-      })
-      .catch(error => console.log(error))    
+    .catch(error => console.log(error))
   }
 
   async deleteBook(bookId: any): Promise<void> {
-    const api = axios.create({
-      baseURL: 'http://localhost:8000'
-    })
-    const response = await api.delete(`/livros/${ bookId }`)
+    BooksService.deleteBook(bookId)
+    .then(response => {
+      BooksService.listBooks()
       .then(response => {
-        this.componentDidMount()
-        console.log('deleteBook')
-      })
-      .catch(error => console.log(error))    
+      this.setState({livros: response.data})
+    })
+    })
+    .catch(error => console.log(error))
   }
   
   render() {
+    if (!localStorage.authApiResponse){
+      return <Navigate to='/login' />
+    }
     if (this.state.action === "list"){
       return(
         <Container className="list-container">

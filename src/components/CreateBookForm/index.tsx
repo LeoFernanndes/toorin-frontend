@@ -1,12 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
-import {useNavigate, Navigate} from 'react-router-dom'
-import { SyntheticEvent } from 'react'
-
-
+import {Navigate} from 'react-router-dom'
+import BooksService from '../../services/booksData.service'
 import './styles.css'
 
 
@@ -14,7 +11,7 @@ type CreateBookFormProps = {
   nomeDoBotao: string;
 }
 
-type CreateBookFormState = {
+export type CreateBookFormState = {
   "titulo": string,
   "isbm": string,
   "autor": string,
@@ -28,7 +25,6 @@ type CreateBookFormState = {
 type ElementLabelName = {
   elemeentLabelname: 'titulo' | 'isbm' | 'autor' | 'editora' | 'edicao' | 'num_paginas' | 'descricao' | 'submit'
 }
-
 
 export class CreateBookForm extends React.Component<CreateBookFormProps, CreateBookFormState> {
   state: CreateBookFormState = {
@@ -44,18 +40,16 @@ export class CreateBookForm extends React.Component<CreateBookFormProps, CreateB
 
   handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    const api = axios.create({
-      baseURL: 'http://localhost:8000'
-    })
     const createBookPayload = JSON.parse(JSON.stringify(this.state));
     delete createBookPayload['submit']
-    console.log(createBookPayload)
-    const response = await api.post('/livros/', createBookPayload)
+    BooksService.createBook(createBookPayload)
       .then(response =>{ 
         console.log(response)
         this.setState({submit: true})
       })      
-      .catch(error => console.log(error.response.data))    
+      .catch(error => {
+        console.log(error)
+      })    
   }
 
   handleElementChange = (element: any): void => {

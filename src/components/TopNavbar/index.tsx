@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 
 
 type MyProps = {
@@ -17,6 +18,21 @@ export class TopNavbar extends React.Component<MyProps, MyState> {
     count: 0,
   };
   render() {
+    let isLoggedIn: boolean
+    if (localStorage.getItem("authApiResponse")) {
+      isLoggedIn = true
+    }
+
+    const handleClick = () => {
+      localStorage.clear()
+    }
+
+    const renderLogOutLink = () => {
+      if (isLoggedIn) {
+        return <Nav.Link href="/"><Button variant="dark" onClick={handleClick}>Log out</Button></Nav.Link>  
+      }
+    }
+
     return (
       <Navbar bg="dark" variant="dark">
           <Container>
@@ -25,8 +41,8 @@ export class TopNavbar extends React.Component<MyProps, MyState> {
           <Nav.Link href="/create-book">Create book</Nav.Link>
           </Nav>
           <Nav>
-          <Nav.Link href="/">Logout</Nav.Link>
-          </Nav>
+          { renderLogOutLink() }
+          </Nav>      
           </Container>
       </Navbar>       
     );
