@@ -3,7 +3,9 @@ import { setupInterceptorsTo } from './axios-token-manager';
 import { CreateBookFormState } from '../components/CreateBookForm';
 import { Livro } from '../components/UpdateBookForm'
 
-const API_BASE_URL = 'http://192.168.33.10:8000/livros/'
+
+const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
+const API_BASE_URL = `${API_ROOT}/livros/`
 
 const api = setupInterceptorsTo(
     axios.create()

@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'http://192.168.33.10:8000/token/'
+
+const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
+const API_BASE_URL = `${API_ROOT}/token/`
+
 class AuthService {
     login(username:string, password:string){
-        return axios.post(API_URL, {username, password})
+        return axios.post(API_BASE_URL, {username, password})
             .then(response => {
                 if (response.status == 200){
                     localStorage.setItem("authApiResponse", JSON.stringify(response.data));

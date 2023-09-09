@@ -1,4 +1,3 @@
-
 import axios, {
     AxiosError,
     AxiosInstance,
@@ -7,8 +6,8 @@ import axios, {
   } from "axios";
 
 
-// const API_URL = process.env.NEXT_PUBLIC_ENDPOINT_AUTH;
-const API_URL = 'http://192.168.33.10:8000/token';
+const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
+const API_BASE_URL = `${API_ROOT}/token`;
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
     const authApiResponse = JSON.parse(localStorage.getItem("authApiResponse") || '{"access": "", "refresh": ""}');
@@ -35,7 +34,7 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError | any> => 
             const authApiResponse = JSON.parse(localStorage.getItem("authApiResponse") || '{"access": "", "refresh": ""}');
            
             try {
-                const rs = await axios.post(`${API_URL}/refresh/`, {
+                const rs = await axios.post(`${API_BASE_URL}/refresh/`, {
                 refresh: authApiResponse.refresh,
                 });
                 const tokenResponse = rs.data;
