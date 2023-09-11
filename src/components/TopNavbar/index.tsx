@@ -3,6 +3,8 @@ import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+import UserCreateUpdateForm from "../UserUpdateForm";
+import { UserCreateUpdateFormProps } from "../UserUpdateForm";
 
 
 type MyProps = {
@@ -27,9 +29,26 @@ export class TopNavbar extends React.Component<MyProps, MyState> {
       localStorage.clear()
     }
 
+    const handleUserUpdateClick = () => {
+      const props: UserCreateUpdateFormProps = {
+        updateProps: {
+          userId: 1,
+          submitButtonText: "Update"
+        },
+        action: "update"
+      }
+
+      return <UserCreateUpdateForm {...props} />
+    }
+
     const renderLogOutLink = () => {
       if (isLoggedIn) {
-        return <Nav.Link href="/"><Button variant="dark" onClick={handleClick}>Log out</Button></Nav.Link>  
+        return (
+          <>
+            <Nav.Link href="/user-update"><Button variant="dark">Update User</Button></Nav.Link> 
+            <Nav.Link href="/"><Button variant="dark" onClick={handleClick}>Log out</Button></Nav.Link> 
+          </>
+        )  
       }
     }
 

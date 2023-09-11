@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { LoginLayout } from './layouts/LoginLayout';
 import { UserRegisterLayout } from './layouts/UserRegisterLayout';
+import { UserCreateUpdateLayout } from './layouts/UserCreateUpdateLayout';
 
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
       <Route path="/create-book" element={ <CreateBookLayout/> }/>      
       <Route path="/login" element={ <LoginLayout/> }/>   
       <Route path="/register" element={ <UserRegisterLayout/> }/>
+      <Route path="/user-update" element={ <UserCreateUpdateLayout/> }/>
     </Routes>    
   </BrowserRouter>,
   document.getElementById('root')
