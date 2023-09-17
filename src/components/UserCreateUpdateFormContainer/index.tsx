@@ -1,14 +1,14 @@
-import { TopNavbar } from "../components/TopNavbar";
-import UserCreateUpdateForm from "../components/UserUpdateForm";
-import { UserCreateUpdateFormProps } from "../components/UserUpdateForm";
+import { TopNavbar } from "../TopNavbar";
+import UserCreateUpdateForm from "./UserCreateUpdateForm";
+import { UserCreateUpdateFormProps } from "./UserCreateUpdateForm";
 
 
 
-export const UserCreateUpdateLayout = (): JSX.Element => {
+export const UserCreateUpdateFormContainer = (): JSX.Element => {
   var props: UserCreateUpdateFormProps
 
   let authApiResponse = JSON.parse(localStorage.getItem('authApiResponse')!)
-  if (authApiResponse.user !== null ){
+  if (authApiResponse !== null){
     props = {
       updateProps: {
         userId: authApiResponse.user.id,
@@ -27,7 +27,6 @@ export const UserCreateUpdateLayout = (): JSX.Element => {
 
     return (
         <>
-          <TopNavbar message="Mensagem"/>
           <UserCreateUpdateForm {...props} />
         </>
     )

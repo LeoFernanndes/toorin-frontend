@@ -4,9 +4,8 @@ import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import {useNavigate, Navigate} from 'react-router-dom'
 import AuthService from '../../services/auth.service'; // import com @
-
-
-import './styles.css'
+import { LoginFormButtonsContainer, LoginFormButtonsFlex,
+  HeaderContainer, LoginFormButtonsContainerRow1, LoginFormButtonsContainerRow2 } from './styled';
 
 
 type CreateBookFormProps = {
@@ -34,6 +33,9 @@ interface LoginFormState {
 function LoginForm(){
   const navigate = useNavigate();
   const navigateToUserRegister = () => {
+    navigate('/register')
+  }
+  const navigateToForgotPassword = () => {
     navigate('/register')
   }
 
@@ -75,7 +77,10 @@ function LoginForm(){
   }
 
   return (     
-    <Container className='form-container'>
+    <>
+      <HeaderContainer>
+        <h2>Login</h2>
+      </HeaderContainer>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Username</Form.Label>
@@ -85,15 +90,22 @@ function LoginForm(){
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="password" name='password' onChange={element => {handleElementChange(element)}} />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          {"Login"}
-        </Button>
-        <Button variant="secondary" type="button"  onClick={navigateToUserRegister} >
-          {"Register"}
-        </Button>
+          <LoginFormButtonsContainer>
+            <LoginFormButtonsContainerRow1>
+              <Button variant="secondary" type="submit">
+                {"Login"}
+              </Button>
+              <Button variant="secondary" type="button"  onClick={navigateToUserRegister} >
+                {"Register"}
+              </Button>
+              <Button variant="secondary" type="button"  onClick={navigateToForgotPassword} >
+                {"Forgot password?"}
+              </Button>
+            </LoginFormButtonsContainerRow1>
+          </LoginFormButtonsContainer>
       </Form>
       { renderLoginErrorSpan() }    
-    </Container>         
+  </>
   );
 }
 

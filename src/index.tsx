@@ -5,9 +5,9 @@ import { CreateBookLayout } from './layouts/CreateBookLayout';
 import { HomeLayout } from './layouts/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { LoginLayout } from './layouts/LoginLayout';
+import { LoginLayout } from './layouts/LoginLayout/LoginLayout';
 import { UserRegisterLayout } from './layouts/UserRegisterLayout';
-import { UserCreateUpdateLayout } from './layouts/UserCreateUpdateLayout';
+import { UserUpdateLayout } from './layouts/UserUpdateLayout';
 
 
 ReactDOM.render(
@@ -17,7 +17,7 @@ ReactDOM.render(
       <Route path="/create-book" element={ <CreateBookLayout/> }/>      
       <Route path="/login" element={ <LoginLayout/> }/>   
       <Route path="/register" element={ <UserRegisterLayout/> }/>
-      <Route path="/user-update" element={ <UserCreateUpdateLayout/> }/>
+      <Route path="/user-update" element={ <UserUpdateLayout/> }/>
     </Routes>    
   </BrowserRouter>,
   document.getElementById('root')

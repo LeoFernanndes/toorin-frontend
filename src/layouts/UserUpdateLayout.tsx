@@ -1,8 +1,10 @@
 import { UserCreateUpdateFormContainer } from "../components/UserCreateUpdateFormContainer";
+import { TopNavbar } from "../components/TopNavbar";
 
 
-export const UserRegisterLayout = (): JSX.Element => (
+export const UserUpdateLayout = (): JSX.Element => (
     <>
+        <TopNavbar />
         <UserCreateUpdateFormContainer />
     </>
 );

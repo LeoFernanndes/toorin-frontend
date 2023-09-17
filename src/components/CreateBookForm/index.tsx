@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Container from 'react-bootstrap/Container'
 import {Navigate} from 'react-router-dom'
 import BooksService from '../../services/booksData.service'
-import './styles.css'
+import { BookCreateFormContainer, BookCreateFormButtonsContainer,
+  BookCreateFormButtonsFlex, HeaderContainer } from './styled';
 
 
 type CreateBookFormProps = {
@@ -64,9 +64,12 @@ export class CreateBookForm extends React.Component<CreateBookFormProps, CreateB
     if (this.state.submit === true) {
       return <Navigate to='/' />;
     }
-    return (      
-      
-      <Container className='form-container'>
+    return (  
+      <>    
+      <BookCreateFormContainer>
+        <HeaderContainer>
+          <h2>Adicionar livro</h2>
+        </HeaderContainer>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Título</Form.Label>
@@ -96,11 +99,16 @@ export class CreateBookForm extends React.Component<CreateBookFormProps, CreateB
             <Form.Label>Descrição</Form.Label>
             <Form.Control type="text" placeholder="descrição" onChange={element => {this.setState({descricao: element.currentTarget.value})}} />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            {this.props.nomeDoBotao}
-          </Button>
+          <BookCreateFormButtonsContainer>
+            <BookCreateFormButtonsFlex>
+              <Button variant="secondary" type="submit">
+                {"Criar"}
+              </Button>
+            </BookCreateFormButtonsFlex>
+          </BookCreateFormButtonsContainer>
         </Form>
-      </Container>         
+      </BookCreateFormContainer>     
+      </>    
     );
   }
 }

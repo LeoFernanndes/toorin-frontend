@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { setupInterceptorsTo } from './axios-token-manager';
-import { UserRegisterFormState } from '../components/UserRegisterForm';
-import { UserCreateUpdateData } from '../components/UserUpdateForm';
+import { UserCreateUpdateData } from '../components/UserCreateUpdateFormContainer/UserCreateUpdateForm';
 
 
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
@@ -13,7 +12,7 @@ const api = setupInterceptorsTo(
   );
 
 class PeopleService {
-    userRegister(userRegisterPayload: UserRegisterFormState){
+    userRegister(userRegisterPayload: UserCreateUpdateData){
         return notAuthApi.post(API_BASE_URL, userRegisterPayload)
     }
 

@@ -3,13 +3,13 @@ import { Navbar } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
-import UserCreateUpdateForm from "../UserUpdateForm";
-import { UserCreateUpdateFormProps } from "../UserUpdateForm";
+import UserCreateUpdateForm from "../UserCreateUpdateFormContainer/UserCreateUpdateForm";
+import { UserCreateUpdateFormProps } from "../UserCreateUpdateFormContainer/UserCreateUpdateForm";
 
 
 type MyProps = {
     // using `interface` is also ok
-    message: string;
+    message?: string;
   };
 type MyState = {
   count: number; // like this
@@ -27,18 +27,6 @@ export class TopNavbar extends React.Component<MyProps, MyState> {
 
     const handleClick = () => {
       localStorage.clear()
-    }
-
-    const handleUserUpdateClick = () => {
-      const props: UserCreateUpdateFormProps = {
-        updateProps: {
-          userId: 1,
-          submitButtonText: "Update"
-        },
-        action: "update"
-      }
-
-      return <UserCreateUpdateForm {...props} />
     }
 
     const renderLogOutLink = () => {

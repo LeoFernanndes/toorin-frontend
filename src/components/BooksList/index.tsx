@@ -74,7 +74,7 @@ export class BooksList extends React.Component<Props, State> {
     if (this.state.action === "list"){
       return(
         <Container className="list-container">
-          <h1 className='header'>Lista de livros cadastrados</h1>
+          <h2 className='header'>Lista de livros cadastrados</h2>
         <Table striped bordered hover size="sm">
           <thead>
             <tr key="header">

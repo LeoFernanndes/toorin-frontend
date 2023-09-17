@@ -1,9 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import BooksService from '../../services/booksData.service';
-import './styles.css';
+import { BookUpdateFormContainer, BookUpdateFormButtonsContainer, BookUpdateFormButtonsFlex } from './styled';
 
 
 export type Livro = {
@@ -83,8 +82,8 @@ export class UpdateBookForm extends React.Component<Props, State> {
 
   render() {
     return (      
-      <Container className='form-container'>
-        <h1 className='header'>Atualizar livro cadastrado</h1>
+      <BookUpdateFormContainer>
+        <h2 className='header'>Atualizar livro cadastrado</h2>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Título</Form.Label>
@@ -114,16 +113,18 @@ export class UpdateBookForm extends React.Component<Props, State> {
             <Form.Label>Descrição</Form.Label>
             <Form.Control type="text" name="descricao" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.descricao}/>
           </Form.Group>
-          <div className='buttons-group'>
-            <Button className='button' variant="primary" type="submit">
+          <BookUpdateFormButtonsContainer>
+            <BookUpdateFormButtonsFlex>
+            <Button className='button' variant="secondary" type="submit">
               {this.props.nomeDoBotao}
             </Button>
-            <Button className='button' variant="primary" type="submit" onClick={this.props.backToList}>
+            <Button className='button' variant="secondary" type="submit" onClick={this.props.backToList}>
               Back
             </Button>
-          </div>          
+            </BookUpdateFormButtonsFlex>
+          </BookUpdateFormButtonsContainer>          
         </Form>
-      </Container>         
+      </BookUpdateFormContainer>         
     );
   }
 }
