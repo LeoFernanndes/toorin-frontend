@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Container from 'react-bootstrap/Container'
-import {useNavigate, Navigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import AuthService from '../../services/auth.service'; // import com @
-import { LoginFormButtonsContainer, LoginFormButtonsFlex,
-  HeaderContainer, LoginFormButtonsContainerRow1, LoginFormButtonsContainerRow2 } from './styled';
+import { LoginFormButtonsContainer, HeaderContainer, InnerLoginFormContainer } from './styled';
 
 
 type CreateBookFormProps = {
@@ -77,7 +75,7 @@ function LoginForm(){
   }
 
   return (     
-    <>
+    <InnerLoginFormContainer>
       <HeaderContainer>
         <h2>Login</h2>
       </HeaderContainer>
@@ -91,21 +89,21 @@ function LoginForm(){
           <Form.Control type="password" placeholder="password" name='password' onChange={element => {handleElementChange(element)}} />
         </Form.Group>
           <LoginFormButtonsContainer>
-            <LoginFormButtonsContainerRow1>
-              <Button variant="secondary" type="submit">
-                {"Login"}
-              </Button>
-              <Button variant="secondary" type="button"  onClick={navigateToUserRegister} >
-                {"Register"}
-              </Button>
-              <Button variant="secondary" type="button"  onClick={navigateToForgotPassword} >
-                {"Forgot password?"}
-              </Button>
-            </LoginFormButtonsContainerRow1>
+
+            <Button variant="secondary" type="submit">
+              {"Login"}
+            </Button>
+            <Button variant="secondary" type="button"  onClick={navigateToUserRegister} >
+              {"Register"}
+            </Button>
+            <Button variant="secondary" type="button"  onClick={navigateToForgotPassword} >
+              {"Forgot password?"}
+            </Button>
+
           </LoginFormButtonsContainer>
       </Form>
       { renderLoginErrorSpan() }    
-  </>
+  </InnerLoginFormContainer>
   );
 }
 
