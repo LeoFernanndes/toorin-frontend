@@ -5,15 +5,18 @@ import BooksService from '../../services/booksData.service';
 import { BookUpdateFormContainer, BookUpdateFormButtonsContainer, BookUpdateFormButtonsFlex } from './styled';
 
 
+// TODO: Check query parameter on the url after performing update
+
+
 export type Livro = {
   "id"?: number,
-  "titulo": string,
+  "title": string,
   "isbm": string,
-  "autor": string,
-  "editora": string,
-  "edicao"?: number,
-  "num_paginas"?: number,
-  "descricao": string
+  "author": string,
+  "publisher": string,
+  "edition"?: number,
+  "pages"?: number,
+  "description": string
 }
 
 type Props = {
@@ -30,13 +33,13 @@ export class UpdateBookForm extends React.Component<Props, State> {
   state: State = {
    livro: {
     "id": 0,
-    "titulo": '',
+    "title": '',
     "isbm": '',
-    "autor": '',
-    "editora": '',
-    "edicao": 0,
-    "num_paginas": 0,
-    "descricao": ''
+    "author": '',
+    "publisher": '',
+    "edition": 0,
+    "pages": 0,
+    "description": ''
    }
   }
 
@@ -57,7 +60,7 @@ export class UpdateBookForm extends React.Component<Props, State> {
       ...prevState,
       livro: {
         ...prevState.livro,
-        [element.target.name]: value
+        [element.target.name]: element.target.value
       }
     }))
   }
@@ -87,7 +90,7 @@ export class UpdateBookForm extends React.Component<Props, State> {
         <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Título</Form.Label>
-            <Form.Control type="text" name="titulo" onChange={element => {this.handleElementChange(element)}} value={this.state.livro.titulo} />
+            <Form.Control type="text" name="title" onChange={element => {this.handleElementChange(element)}} value={this.state.livro.title} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>ISBM</Form.Label>
@@ -95,23 +98,23 @@ export class UpdateBookForm extends React.Component<Props, State> {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Autor</Form.Label>
-            <Form.Control type="text"  name="autor" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.autor}/>
+            <Form.Control type="text"  name="author" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.author}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Editora</Form.Label>
-            <Form.Control type="text"  name="editora" onChange={element =>{{this.handleElementChange(element)}}} value={this.state.livro.editora}/>
+            <Form.Control type="text"  name="publisher" onChange={element =>{{this.handleElementChange(element)}}} value={this.state.livro.publisher}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Ediçao</Form.Label>
-            <Form.Control type="text" name="edicao" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.edicao}/>
+            <Form.Control type="text" name="edition" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.edition}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Número de páginas</Form.Label>
-            <Form.Control type="text" name="num_paginas" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.num_paginas}/>
+            <Form.Control type="text" name="pages" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.pages}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Descrição</Form.Label>
-            <Form.Control type="text" name="descricao" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.descricao}/>
+            <Form.Control type="text" name="description" onChange={element => {{this.handleElementChange(element)}}} value={this.state.livro.description}/>
           </Form.Group>
           <BookUpdateFormButtonsContainer>
             <BookUpdateFormButtonsFlex>

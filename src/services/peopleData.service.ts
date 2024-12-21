@@ -4,7 +4,7 @@ import { UserCreateUpdateData } from '../components/UserCreateUpdateFormContaine
 
 
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
-const API_BASE_URL = `${API_ROOT}/pessoas/users/`
+const API_BASE_URL = `${API_ROOT}/people/users/`
 
 const notAuthApi = axios.create()
 const api = setupInterceptorsTo(

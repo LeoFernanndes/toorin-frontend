@@ -111,7 +111,7 @@ export class RegisterForm extends React.Component<CreateBookFormProps, RegisterF
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Last name</Form.Label>
-            <Form.Control type="text" placeholder="last_name" name='last_name' onChange={element => {this.handleElementChange(element)}} />
+            <Form.Control type="text" placeholder="l_ast_name" name='last_name' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Button variant="primary" type="submit">
             Register

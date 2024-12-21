@@ -86,3 +86,13 @@ export const HeaderContainer = styled.div`
     justify-content: space-around;
     padding: 1% 0 1% 0;
 `
+
+export const LoginErrorContainer = styled.div`
+  margin: 50px;
+  display: flex;
+  justify-content: space-around;
+`
+
+export const LoginErrorText = styled.a`
+  color: red;
+`

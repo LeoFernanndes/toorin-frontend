@@ -3,8 +3,13 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import AuthService from '../../services/auth.service'; // import com @
-import { LoginFormButtonsContainer, HeaderContainer, InnerLoginFormContainer } from './styled';
+import { LoginFormButtonsContainer, HeaderContainer, InnerLoginFormContainer, LoginErrorContainer, LoginErrorText } from './styled';
+import {stringify} from "querystring";
 
+
+const LoginErrorMessagesMap = {
+  'Requestfailedwithstatuscode400': 'Username and/or password are incorrect'
+}
 
 type CreateBookFormProps = {
   nomeDoBotao: string;
@@ -44,6 +49,8 @@ function LoginForm(){
   }
 
   const [state, setState] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState('')
+
 
   const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
@@ -53,10 +60,14 @@ function LoginForm(){
         setState({...state, submit: true, successfullLogin: true})
         navigate('/')
       } else {
-        setState({...state, successfullLogin: false})     
+        console.log(response)
+        setState({...state, successfullLogin: false})
+        setErrorMessage(response.message)
       }      
     })
-    .catch(error => setState({...state, successfullLogin: false}))
+    .catch(error => {
+      setState({...state, successfullLogin: false})
+    })
   }
 
   const handleElementChange = (element: any): void => {
@@ -69,8 +80,15 @@ function LoginForm(){
 
   const renderLoginErrorSpan = () => {
     console.log(state)
+    console.log(errorMessage)
+    const cleanErrorMessage = errorMessage.trim()
+
     if(state.successfullLogin == false){
-      return <a>Deu zica no login</a>
+      return (
+          <LoginErrorContainer>
+            <LoginErrorText>{LoginErrorMessagesMap.Requestfailedwithstatuscode400}</LoginErrorText>
+          </LoginErrorContainer>
+      )
     }
   }
 

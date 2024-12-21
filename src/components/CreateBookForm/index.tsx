@@ -12,13 +12,13 @@ type CreateBookFormProps = {
 }
 
 export type CreateBookFormState = {
-  "titulo": string,
+  "title": string,
   "isbm": string,
-  "autor": string,
-  "editora": string,
-  "edicao"?: number,
-  "num_paginas"?: number,
-  "descricao": string,
+  "author": string,
+  "publisher": string,
+  "edition"?: number,
+  "pages"?: number,
+  "description": string,
   "submit"?: boolean
 }
 
@@ -28,13 +28,13 @@ type ElementLabelName = {
 
 export class CreateBookForm extends React.Component<CreateBookFormProps, CreateBookFormState> {
   state: CreateBookFormState = {
-    "titulo": "",
+    "title": "",
     "isbm": "",
-    "autor": "",
-    "editora": "",
-    "edicao": 0,
-    "num_paginas": 0,
-    "descricao": "",
+    "author": "",
+    "publisher": "",
+    "edition": 0,
+    "pages": 0,
+    "description": "",
     "submit": false
   }
 
@@ -58,6 +58,7 @@ export class CreateBookForm extends React.Component<CreateBookFormProps, CreateB
       [element.target.name]: element.target.value
     }
     this.setState(newState)
+    console.log(newState)
   }
 
   render() {
@@ -73,36 +74,39 @@ export class CreateBookForm extends React.Component<CreateBookFormProps, CreateB
         <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Título</Form.Label>
-            <Form.Control type="text" placeholder="título" name='titulo' onChange={element => {this.handleElementChange(element)}} />
+            <Form.Control type="text" placeholder="título" name='title' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>ISBM</Form.Label>
-            <Form.Control type="text" placeholder="isbm" onChange={element => {this.setState({isbm: element.currentTarget.value})}} />
+            <Form.Control type="text" placeholder="isbm" name='isbm' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Autor</Form.Label>
-            <Form.Control type="text" placeholder="autor" onChange={element => {this.setState({autor: element.currentTarget.value})}} />
+            <Form.Control type="text" placeholder="autor" name='author' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Editora</Form.Label>
-            <Form.Control type="text" placeholder="editora" onChange={element => {this.setState({editora: element.currentTarget.value})}} />
+            <Form.Control type="text" placeholder="editora" name='publisher' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Ediçao</Form.Label>
-            <Form.Control type="text" placeholder="edição" onChange={element => {this.setState({edicao: parseInt(element.currentTarget.value)})}} />
+            <Form.Control type="text" placeholder="edição" name='edition' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Número de páginas</Form.Label>
-            <Form.Control type="text" placeholder="número de páginas" onChange={element => {this.setState({num_paginas: parseInt(element.currentTarget.value)})}} />
+            <Form.Control type="text" placeholder="número de páginas" name='pages' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Descrição</Form.Label>
-            <Form.Control type="text" placeholder="descrição" onChange={element => {this.setState({descricao: element.currentTarget.value})}} />
+            <Form.Control type="text" placeholder="descrição" name='description' onChange={element => {this.handleElementChange(element)}} />
           </Form.Group>
           <BookCreateFormButtonsContainer>
             <BookCreateFormButtonsFlex>
               <Button variant="secondary" type="submit">
                 {"Criar"}
+              </Button>
+              <Button variant="secondary">
+                {"Voltar"}
               </Button>
             </BookCreateFormButtonsFlex>
           </BookCreateFormButtonsContainer>

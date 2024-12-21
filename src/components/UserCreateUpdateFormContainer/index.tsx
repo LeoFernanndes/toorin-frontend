@@ -8,7 +8,7 @@ export const UserCreateUpdateFormContainer = (): JSX.Element => {
   var props: UserCreateUpdateFormProps
 
   let authApiResponse = JSON.parse(localStorage.getItem('authApiResponse')!)
-  if (authApiResponse !== null){
+  if (authApiResponse != undefined){
     props = {
       updateProps: {
         userId: authApiResponse.user.id,

@@ -7,6 +7,10 @@ import { UserCreateUpdateFormButtonsFlex, UserCreateUpdateFormButtonsContainer,
   UserCreateUpdateFormContainer, HeaderContainer } from './styled';
 
 
+// TODO: Update user must have special routes for email and password
+// TODO: Check back button on update layout returning to login event havin a valid session
+
+
 export interface UserCreateUpdateFormProps {
   createProps?: {
     submitButtonText: string
@@ -55,11 +59,11 @@ function UserCreateUpdateForm(props: UserCreateUpdateFormProps){
     if (props.action === "create"){
       initialState = {
         userData: {
-          "username": "username create",
-          "email": "email@email.com",
-          "password": "password",
-          "first_name": "first name",
-          "last_name": "last name"
+          "username": "",
+          "email": "",
+          "password": "",
+          "first_name": "",
+          "last_name": ""
         },
         sumbitButtonText: props.createProps!.submitButtonText,
         formTitle: "Register"
@@ -129,45 +133,75 @@ function UserCreateUpdateForm(props: UserCreateUpdateFormProps){
     setState(newState)
   }
 
-  return (      
-    <UserCreateUpdateFormContainer>
-        <HeaderContainer>
-          <h2>{state.formTitle}</h2>
-        </HeaderContainer>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Username</Form.Label>
-            <Form.Control defaultValue={state.userData.username} type="text" name='username' onChange={element => {handleElementChange(element)}} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Email</Form.Label>
-            <Form.Control defaultValue={state.userData.email} type="text" name='email' onChange={element => {handleElementChange(element)}} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="password" name='password' onChange={element => {handleElementChange(element)}} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>First name</Form.Label>
-            <Form.Control defaultValue={state.userData.first_name} type="text" name='first_name' onChange={element => {handleElementChange(element)}} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Last name</Form.Label>
-            <Form.Control defaultValue={state.userData.last_name} type="text" name='last_name' onChange={element => {handleElementChange(element)}} />
-          </Form.Group>
-          <UserCreateUpdateFormButtonsContainer>
-            <UserCreateUpdateFormButtonsFlex>
-              <Button variant="secondary" type="submit">
-                {state.sumbitButtonText}
-              </Button>
-              <Button variant="secondary" type="button" onClick={() => navigate('/login')}>
-                {"Back"}
-              </Button>
-            </UserCreateUpdateFormButtonsFlex>
-          </UserCreateUpdateFormButtonsContainer>
-        </Form>
-    </UserCreateUpdateFormContainer>     
-  );
-};
+  if(props.action == 'create'){
+    return (      
+      <UserCreateUpdateFormContainer>
+          <HeaderContainer>
+            <h2>{state.formTitle}</h2>
+          </HeaderContainer>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Username</Form.Label>
+              <Form.Control placeholder={'username'} type="text" name='username' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Email</Form.Label>
+              <Form.Control placeholder={'email@domain.com'} type="text" name='email' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="password" name='password' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>First name</Form.Label>
+              <Form.Control placeholder={'first name'} type="text" name='first_name' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control placeholder={'last name'} type="text" name='last_name' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <UserCreateUpdateFormButtonsContainer>
+              <UserCreateUpdateFormButtonsFlex>
+                <Button variant="secondary" type="submit">
+                  {state.sumbitButtonText}
+                </Button>
+                <Button variant="secondary" type="button" onClick={() => navigate('/login')}>
+                  {"Back"}
+                </Button>
+              </UserCreateUpdateFormButtonsFlex>
+            </UserCreateUpdateFormButtonsContainer>
+          </Form>
+      </UserCreateUpdateFormContainer>     
+    );
+  } else {
+    return (      
+      <UserCreateUpdateFormContainer>
+          <HeaderContainer>
+            <h2>{state.formTitle}</h2>
+          </HeaderContainer>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>First name</Form.Label>
+              <Form.Control value={state.userData.first_name} type="text" name='first_name' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Last name</Form.Label>
+              <Form.Control value={state.userData.last_name} type="text" name='last_name' onChange={element => {handleElementChange(element)}} />
+            </Form.Group>
+            <UserCreateUpdateFormButtonsContainer>
+              <UserCreateUpdateFormButtonsFlex>
+                <Button variant="secondary" type="submit">
+                  {state.sumbitButtonText}
+                </Button>
+                <Button variant="secondary" type="button" onClick={() => navigate('/login')}>
+                  {"Back"}
+                </Button>
+              </UserCreateUpdateFormButtonsFlex>
+            </UserCreateUpdateFormButtonsContainer>
+          </Form>
+      </UserCreateUpdateFormContainer>     
+    );
+  }
+}  
 
 export default UserCreateUpdateForm

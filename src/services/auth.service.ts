@@ -8,14 +8,16 @@ class AuthService {
     login(username:string, password:string){
         return axios.post(API_BASE_URL, {username, password})
             .then(response => {
-                if (response.status == 200){
+                if (response.status == 200) {
                     localStorage.setItem("authApiResponse", JSON.stringify(response.data));
                     console.log(localStorage)
                     return response.data
                 }
-                
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(JSON.stringify(error))
+                return error
+            })
     };
 
     logout(){

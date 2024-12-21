@@ -9,13 +9,13 @@ import './BooksList.css'
 
 type Livro = {
   "id"?: number,
-  "titulo": string,
+  "title": string,
   "isbm": string,
-  "autor": string,
-  "editora": string,
-  "edicao"?: number,
-  "num_paginas"?: number,
-  "descricao": string
+  "author": string,
+  "publisher": string,
+  "edition"?: number,
+  "pages"?: number,
+  "description": string
 }
 
 type Props = {}
@@ -91,9 +91,9 @@ export class BooksList extends React.Component<Props, State> {
               return(      
                   <tr key={livro.id}>
                     <td>{livro.id}</td>
-                    <td>{livro.titulo}</td>
-                    <td>{livro.autor}</td>
-                    <td>{livro.edicao}</td>
+                    <td>{livro.title}</td>
+                    <td>{livro.author}</td>
+                    <td>{livro.edition}</td>
                     <td>
                       <div className='buttons-container'>
                         <button className="list-button" onClick={() => { this.setState({action: 'update', bookId: livro.id})}}>Update</button>

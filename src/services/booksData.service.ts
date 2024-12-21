@@ -5,7 +5,7 @@ import { Livro } from '../components/UpdateBookForm'
 
 
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000'
-const API_BASE_URL = `${API_ROOT}/livros/`
+const API_BASE_URL = `${API_ROOT}/books/`
 
 const api = setupInterceptorsTo(
     axios.create()
